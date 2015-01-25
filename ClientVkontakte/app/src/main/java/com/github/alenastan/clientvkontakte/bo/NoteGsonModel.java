@@ -12,11 +12,13 @@ public class NoteGsonModel implements Serializable {
     private String content;
 
     private Long id;
+    private String url;
 
-    public NoteGsonModel(Long id, String title, String content) {
+    public NoteGsonModel(Long id, String title, String content, String url) {
         this.title = title;
         this.content = content;
         this.id = id;
+        this.url = url;
     }
 
     public String getTitle() {
@@ -29,5 +31,8 @@ public class NoteGsonModel implements Serializable {
 
     public String getContent() {
         return content;
+    }
+    public String getUrl() {
+        return url;
     }
 }

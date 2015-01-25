@@ -7,5 +7,14 @@
     <string name="title_vk_login_activity">Login</string>
     <string name="title_main_activity">Vkontakte</string>
     <string name="title_details_activity">Detail</string>
+    <string name="title_friends_item">Друзья</string>
+    <string name="title_wall_item">Стена</string>
+    <string name="title_news_item">Новости</string>
+    <string name="action_example">example</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="empty">Empty</string>
+    <string name="error">Error</string>
+
 
 </resources>
