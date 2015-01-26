@@ -13,6 +13,8 @@ public class Api {
     public static final String VERSION_PARAM = "v";
 
     public static final String FRIENDS_GET = BASE_PATH + "friends.get?fields=photo_200_orig,online,nickname";
+    public static final String WALL_GET = BASE_PATH + "wall.get?filters=owner&fields=photo_100&extended=1";
+    public static final String NEWS_GET = BASE_PATH + "newsfeed.get?filters=post&fields=photo_130"+"&count=50";
 
 
 }
