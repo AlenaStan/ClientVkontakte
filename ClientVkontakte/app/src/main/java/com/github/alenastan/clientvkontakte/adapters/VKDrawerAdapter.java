@@ -16,75 +16,67 @@ import com.github.alenastan.clientvkontakte.R;
  */
 public class VKDrawerAdapter extends BaseAdapter {
 
-    private Context context;
-    private String[] titles;
-    private int[] images;
-    private LayoutInflater inflater;
-    private int[] selectedPosition;
+    private Context mContext;
+    private String[] mTitles;
+    private int[] mImages;
+    private LayoutInflater mInflater;
+    private int[] mSelectedPosition;
 
     public VKDrawerAdapter(Context context, String[] titles, int[] images,
-                           int[] selectedposition) {
-        // TODO Auto-generated constructor stub
-        this.context = context;
-        this.titles = titles;
-        this.images = images;
-        this.inflater = LayoutInflater.from(this.context);
-        this.selectedPosition = selectedposition;
+                           int[] selectedPosition) {
+        mContext = context;
+        mTitles = titles;
+        mImages = images;
+        mInflater = LayoutInflater.from(this.mContext);
+        mSelectedPosition = selectedPosition;
     }
 
     @Override
     public int getCount() {
-        // TODO Auto-generated method stub
-        return titles.length;
+        return mTitles.length;
     }
 
     @Override
     public Object getItem(int position) {
-        // TODO Auto-generated method stub
-        return position;
+         return position;
     }
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
-        return position;
+         return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
-
         ViewHolder mViewHolder;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.drawer_list, null);
+            convertView = mInflater.inflate(R.layout.drawer_list, null);
             mViewHolder = new ViewHolder();
             convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
 
-        mViewHolder.tvTitle = (TextView) convertView
-                .findViewById(R.id.textView1);
-        mViewHolder.ivIcon = (ImageView) convertView
+        mViewHolder.mTvTitle = (TextView) convertView.findViewById(R.id.textView1);
+        mViewHolder.mIvIcon = (ImageView) convertView
                 .findViewById(R.id.imageView1);
 
-        mViewHolder.tvTitle.setText(titles[position]);
-        mViewHolder.ivIcon.setImageResource(images[position]);
+        mViewHolder.mTvTitle.setText(mTitles[position]);
+        mViewHolder.mIvIcon.setImageResource(mImages[position]);
 
-        //Highlight the selected list item
-        if (position == selectedPosition[0]) {
+        if (position == mSelectedPosition[0]) {
             convertView.setBackgroundColor(Color.WHITE);
-            mViewHolder.tvTitle.setTextColor(Color.BLACK);
+            mViewHolder.mTvTitle.setTextColor(Color.BLACK);
         } else {
             convertView.setBackgroundColor(Color.TRANSPARENT);
-            mViewHolder.tvTitle.setTextColor(Color.WHITE);
+            mViewHolder.mTvTitle.setTextColor(Color.WHITE);
         }
 
         return convertView;
     }
 
     private class ViewHolder {
-        TextView tvTitle;
-        ImageView ivIcon;
+        TextView mTvTitle;
+        ImageView mIvIcon;
     }
 }

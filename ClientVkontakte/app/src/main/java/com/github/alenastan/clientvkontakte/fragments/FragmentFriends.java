@@ -48,7 +48,8 @@ public class FragmentFriends extends Fragment implements DataManager.Callback<Li
     private TextView mEmpty;
     private ProgressBar mProgressBar;
     private ImageLoader mImageLoader;
-    public static final int COUNT = 50;
+    private static final int COUNT = 50;
+    private static final int KEY = 1;
 
     public static FragmentFriends newInstance() {
         FragmentFriends fragment = new FragmentFriends();
@@ -110,11 +111,11 @@ public class FragmentFriends extends Fragment implements DataManager.Callback<Li
     }
 
     private List<Friend> mData;
-    private boolean isPagingEnabled = true;
+    private boolean mIsPagingEnabled = true;
 
-    private View footerProgress;
+    private View mFooterProgress;
 
-    private boolean isImageLoaderControlledByDataManager = false;
+    private boolean mIsImageLoaderControlledByDataManager = false;
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onDone(List<Friend> data) {
@@ -126,7 +127,7 @@ public class FragmentFriends extends Fragment implements DataManager.Callback<Li
             mEmpty.setVisibility(View.VISIBLE);
         }
         //ListView listView = (ListView) findViewById(android.R.id.list);
-        footerProgress = View.inflate(getActivity().getApplicationContext(), R.layout.view_footer_progress, null);
+        mFooterProgress = View.inflate(getActivity().getApplicationContext(), R.layout.view_footer_progress, null);
         refreshFooter();
         if (mAdapter == null) {
             mData = data;
@@ -151,29 +152,29 @@ public class FragmentFriends extends Fragment implements DataManager.Callback<Li
 
             };
             mListView.setFooterDividersEnabled(true);
-            mListView.addFooterView(footerProgress, null, false);
+            mListView.addFooterView(mFooterProgress, null, false);
             mListView.setAdapter(mAdapter);
             mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
-                private int previousTotal = 0;
+                private int mPreviousTotal = 0;
 
-                private int visibleThreshold = 5;
+                private int mVisibleThreshold = 5;
 
                 @Override
                 public void onScrollStateChanged(AbsListView view, int scrollState) {
                     switch (scrollState) {
                         case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
-                            if (!isImageLoaderControlledByDataManager) {
+                            if (!mIsImageLoaderControlledByDataManager) {
                                 mImageLoader.resume();
                             }
                             break;
                         case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
-                            if (!isImageLoaderControlledByDataManager) {
+                            if (!mIsImageLoaderControlledByDataManager) {
                                 mImageLoader.pause();
                             }
                             break;
                         case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
-                            if (!isImageLoaderControlledByDataManager) {
+                            if (!mIsImageLoaderControlledByDataManager) {
                                 mImageLoader.pause();
                             }
                             break;
@@ -187,9 +188,9 @@ public class FragmentFriends extends Fragment implements DataManager.Callback<Li
                     if (count == 0) {
                         return;
                     }
-                    if (previousTotal != totalItemCount && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-                        previousTotal = totalItemCount;
-                        isImageLoaderControlledByDataManager = true;
+                    if (mPreviousTotal != totalItemCount && (totalItemCount - visibleItemCount) <= (firstVisibleItem + mVisibleThreshold)) {
+                        mPreviousTotal = totalItemCount;
+                        mIsImageLoaderControlledByDataManager = true;
                         DataManager.loadData(new DataManager.Callback<List<Friend>>() {
                                                  @Override
                                                  public void onDataLoadStart() {
@@ -201,14 +202,14 @@ public class FragmentFriends extends Fragment implements DataManager.Callback<Li
                                                      updateAdapter(data);
                                                      refreshFooter();
                                                      mImageLoader.resume();
-                                                     isImageLoaderControlledByDataManager = false;
+                                                     mIsImageLoaderControlledByDataManager = false;
                                                  }
 
                                                  @Override
                                                  public void onError(Exception e) {
                                                      FragmentFriends.this.onError(e);
                                                      mImageLoader.resume();
-                                                     isImageLoaderControlledByDataManager = false;
+                                                     mIsImageLoaderControlledByDataManager = false;
                                                  }
                                              },
                                 getUrl(COUNT, count),
@@ -229,9 +230,9 @@ public class FragmentFriends extends Fragment implements DataManager.Callback<Li
                 }
             });
             if (data != null && data.size() == COUNT) {
-                isPagingEnabled = true;
+                mIsPagingEnabled = true;
             } else {
-                isPagingEnabled = false;
+                mIsPagingEnabled = false;
             }
         } else {
             mData.clear();
@@ -243,11 +244,11 @@ public class FragmentFriends extends Fragment implements DataManager.Callback<Li
     private void updateAdapter(List<Friend> data) {
         //ListView listView = (ListView) findViewById(android.R.id.list);
         if (data != null && data.size() == COUNT) {
-            isPagingEnabled = true;
-            mListView.addFooterView(footerProgress, null, false);
+            mIsPagingEnabled = true;
+            mListView.addFooterView(mFooterProgress, null, false);
         } else {
-            isPagingEnabled = false;
-            mListView.removeFooterView(footerProgress);
+            mIsPagingEnabled = false;
+            mListView.removeFooterView(mFooterProgress);
         }
         if (data != null) {
             mData.addAll(data);
@@ -268,11 +269,11 @@ public class FragmentFriends extends Fragment implements DataManager.Callback<Li
     }
 
     private void refreshFooter() {
-        if (footerProgress != null) {
-            if (isPagingEnabled) {
-                footerProgress.setVisibility(View.VISIBLE);
+        if (mFooterProgress != null) {
+            if (mIsPagingEnabled) {
+                mFooterProgress.setVisibility(View.VISIBLE);
             } else {
-                footerProgress.setVisibility(View.GONE);
+                mFooterProgress.setVisibility(View.GONE);
             }
         }
     }
@@ -290,7 +291,7 @@ public class FragmentFriends extends Fragment implements DataManager.Callback<Li
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(1);
+        ((MainActivity) activity).onSectionAttached(KEY);
     }
 
 }

@@ -44,6 +44,7 @@ public class FragmentNews extends Fragment implements DataManager.Callback<List<
     private TextView mEmpty;
     private ProgressBar mProgressBar;
     private ImageLoader mImageLoader;
+    private static final int KEY = 3;
 
 
     public static FragmentNews newInstance() {
@@ -175,7 +176,7 @@ public class FragmentNews extends Fragment implements DataManager.Callback<List<
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(3);
+        ((MainActivity) activity).onSectionAttached(KEY);
     }
 
 }

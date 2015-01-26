@@ -43,6 +43,8 @@ public class FragmentWall extends Fragment implements DataManager.Callback<List<
     private TextView mEmpty;
     private ProgressBar mProgressBar;
     private ImageLoader mImageLoader;
+    private static final int KEY = 2;
+
 
 
     public static FragmentWall newInstance() {
@@ -175,7 +177,7 @@ public class FragmentWall extends Fragment implements DataManager.Callback<List<
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(2);
+        ((MainActivity) activity).onSectionAttached(KEY);
     }
 
 }
