@@ -89,8 +89,7 @@ public class FragmentFriends extends Fragment implements DataManager.Callback<Li
     }
 
     private HttpDataSource getHttpDataSource() {
-        //return VkDataSource.get(getActivity().getApplicationContext());
-        return  new VkDataSource();
+       return  new VkDataSource();
     }
 
     private void update(HttpDataSource dataSource, FriendArrayProcessor processor) {
@@ -126,7 +125,6 @@ public class FragmentFriends extends Fragment implements DataManager.Callback<Li
         if (data == null || data.isEmpty()) {
             mEmpty.setVisibility(View.VISIBLE);
         }
-        //ListView listView = (ListView) findViewById(android.R.id.list);
         mFooterProgress = View.inflate(getActivity().getApplicationContext(), R.layout.view_footer_progress, null);
         refreshFooter();
         if (mAdapter == null) {
@@ -139,13 +137,13 @@ public class FragmentFriends extends Fragment implements DataManager.Callback<Li
                         convertView = View.inflate(getActivity().getApplicationContext(), R.layout.adapter_item, null);
                     }
                     Friend item = getItem(position);
-                    TextView textView1 = (TextView) convertView.findViewById(android.R.id.text1);
-                    textView1.setText(item.getName());
-                    TextView textView2 = (TextView) convertView.findViewById(android.R.id.text2);
-                    textView2.setText(item.getNickname());
+                    TextView firstName = (TextView) convertView.findViewById(R.id.first_name);
+                    firstName.setText(item.getName());
+                    TextView nickName = (TextView) convertView.findViewById(R.id.last_name);
+                    nickName.setText(item.getNickname());
                     convertView.setTag(item.getId());
                     final String url = item.getPhoto();
-                    final ImageView imageView = (ImageView) convertView.findViewById(android.R.id.icon);
+                    final ImageView imageView = (ImageView) convertView.findViewById(R.id.photo);
                     mImageLoader.loadAndDisplay(url, imageView);
                     return convertView;
                 }
@@ -157,7 +155,6 @@ public class FragmentFriends extends Fragment implements DataManager.Callback<Li
             mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
                 private int mPreviousTotal = 0;
-
                 private int mVisibleThreshold = 5;
 
                 @Override
@@ -242,7 +239,6 @@ public class FragmentFriends extends Fragment implements DataManager.Callback<Li
     }
 
     private void updateAdapter(List<Friend> data) {
-        //ListView listView = (ListView) findViewById(android.R.id.list);
         if (data != null && data.size() == COUNT) {
             mIsPagingEnabled = true;
             mListView.addFooterView(mFooterProgress, null, false);
