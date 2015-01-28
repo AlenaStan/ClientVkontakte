@@ -21,7 +21,7 @@ public class EncrManager {
 
     public static String encrypt(final Context context, final String value) throws Exception {
         String sourceKey = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        Toast.makeText(context, sourceKey, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, sourceKey, Toast.LENGTH_SHORT).show();
         byte[] bytesKey = sourceKey.getBytes(ENCODING);
         final DESKeySpec keySpec = new DESKeySpec(bytesKey);
         final SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(DES);
@@ -35,7 +35,7 @@ public class EncrManager {
 
     public static String decrypt(final Context context, final String value) throws Exception {
         String sourceKey = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        Toast.makeText(context, sourceKey, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, sourceKey, Toast.LENGTH_SHORT).show();
         byte[] bytesKey = sourceKey.getBytes(ENCODING);
         final DESKeySpec keySpec = new DESKeySpec(bytesKey);
         final SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(DES);

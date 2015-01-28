@@ -65,10 +65,8 @@ public class VKDrawerAdapter extends BaseAdapter {
         mViewHolder.mIvIcon.setImageResource(mImages[position]);
 
         if (position == mSelectedPosition[0]) {
-            convertView.setBackgroundColor(Color.WHITE);
             mViewHolder.mTvTitle.setTextColor(Color.BLACK);
         } else {
-            convertView.setBackgroundColor(Color.TRANSPARENT);
             mViewHolder.mTvTitle.setTextColor(Color.WHITE);
         }
 
