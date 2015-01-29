@@ -2,6 +2,7 @@ package com.github.alenastan.clientvkontakte;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -54,8 +55,10 @@ public class VkLoginActivity extends ActionBarActivity implements VkOAuthHelper.
     }
 
     @Override
-    public void onSuccess() {
-        setResult(RESULT_OK);
+    public void onSuccess(String accessToken) {
+        Intent intent = getIntent();
+        intent.putExtra(Session.ACCESS_TOKEN,accessToken);
+        setResult(RESULT_OK,intent);
         finish();
     }
 

@@ -15,6 +15,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="empty">Empty</string>
     <string name="error">Error</string>
+    <string name="exeption_drawer_text">Activity must implement NavigationDrawerCallbacks.</string>
 
 
 </resources>

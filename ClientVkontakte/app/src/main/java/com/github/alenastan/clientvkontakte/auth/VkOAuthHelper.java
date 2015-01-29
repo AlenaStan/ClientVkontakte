@@ -17,7 +17,7 @@ public class VkOAuthHelper {
     public static interface Callbacks {
 
         void onError(Exception e);
-        void onSuccess();
+        void onSuccess(String accessToken);
 
     }
 
@@ -38,7 +38,7 @@ public class VkOAuthHelper {
             if (!TextUtils.isEmpty(accessToken)) {
                 Log.d(TAG, "token " + accessToken);
                 sToken = accessToken;
-                callbacks.onSuccess();
+                callbacks.onSuccess(accessToken);
                 return true;
             } else {
                 String error = parsedFragment.getQueryParameter("error");

@@ -2,6 +2,7 @@ package com.github.alenastan.clientvkontakte.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,17 +58,18 @@ public class VKDrawerAdapter extends BaseAdapter {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
 
-        mViewHolder.mTvTitle = (TextView) convertView.findViewById(R.id.textView1);
+        mViewHolder.mTvTitle = (TextView) convertView.findViewById(R.id.section_text);
         mViewHolder.mIvIcon = (ImageView) convertView
-                .findViewById(R.id.imageView1);
+                .findViewById(R.id.section_image);
 
         mViewHolder.mTvTitle.setText(mTitles[position]);
         mViewHolder.mIvIcon.setImageResource(mImages[position]);
-
         if (position == mSelectedPosition[0]) {
             mViewHolder.mTvTitle.setTextColor(Color.BLACK);
+            mViewHolder.mTvTitle.setActivated(true);
         } else {
             mViewHolder.mTvTitle.setTextColor(Color.WHITE);
+            mViewHolder.mTvTitle.setActivated(false);
         }
 
         return convertView;

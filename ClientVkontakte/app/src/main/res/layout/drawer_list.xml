@@ -6,15 +6,17 @@
     android:background="@drawable/activated_background">
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/section_image"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_margin="10dp"
         android:layout_weight=".5"
-        android:src="@drawable/friends_dark" />
+        android:src="@drawable/friends_dark"
+
+        />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/section_text"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_margin="10dp"

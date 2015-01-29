@@ -16,20 +16,21 @@ public class StartActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //ServiceResult.executeWithResultReceiver(this);
-        //ServiceResult.executeWithServiceConnection(this);
-        if (AuthUtils.isLogged()) {
-            startMainActivity();
-        } else {
+        if (Session.getTokenFromSharedPreferences(this) == null) {
             startActivityForResult(new Intent(this, VkLoginActivity.class), REQUEST_LOGIN);
+        } else {
+            startMainActivity();
         }
     }
+
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_LOGIN && resultCode == RESULT_OK) {
+            Session mSession = new Session();
+            mSession.saveTokenToSharedPreferences(data.getStringExtra(Session.ACCESS_TOKEN),this);
             startMainActivity();
         } else {
             finish();

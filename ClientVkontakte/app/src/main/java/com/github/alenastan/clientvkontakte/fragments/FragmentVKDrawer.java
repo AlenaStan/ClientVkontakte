@@ -21,7 +21,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.github.alenastan.clientvkontakte.R;
+import com.github.alenastan.clientvkontakte.Titles;
 import com.github.alenastan.clientvkontakte.adapters.VKDrawerAdapter;
+import com.github.alenastan.clientvkontakte.bo.Wall;
 
 /**
  * Created by lena on 25.01.2015.
@@ -29,11 +31,8 @@ import com.github.alenastan.clientvkontakte.adapters.VKDrawerAdapter;
 public class FragmentVKDrawer extends Fragment {
 
     private static final String SELECTED_POSITION = "selected_navigation_drawer_position";
-
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
-
     private NavigationDrawerCallbacks mCallbacks;
-
     private ActionBarDrawerToggle mDrawerToggle;
 
     private DrawerLayout mDrawerLayout;
@@ -44,10 +43,15 @@ public class FragmentVKDrawer extends Fragment {
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
     private VKDrawerAdapter mMyDrawerAdapter;
+    private enum DrawerTitles {
+        FRIENDS,
+        WALL,
+        NEWS
+    }
 
-    private String[] titles;
+    private String[] mTitles;
 
-    private int[] images, selectedPosition;
+    private int[] mImages, mSelectedPosition;
 
     public FragmentVKDrawer() {
     }
@@ -81,39 +85,41 @@ public class FragmentVKDrawer extends Fragment {
                              Bundle savedInstanceState) {
         mDrawerListView = (ListView) inflater.inflate(
                 R.layout.fragment_vkdrawer, container, false);
+
         mDrawerListView
                 .setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view,
                                             int position, long id) {
+
                         if (position == 0) {
-                            images[0] = R.drawable.friends_dark;
-                            images[1] = R.drawable.wall_light;
-                            images[2] = R.drawable.news_light;
+                            mImages[0] = R.drawable.friends_dark;
+                            mImages[1] = R.drawable.wall_light;
+                            mImages[2] = R.drawable.news_light;
                         } else if (position == 1) {
-                            images[0] = R.drawable.friends_light;
-                            images[1] = R.drawable.wall_dark;
-                            images[2] = R.drawable.news_light;
+                            mImages[0] = R.drawable.friends_light;
+                            mImages[1] = R.drawable.wall_dark;
+                            mImages[2] = R.drawable.news_light;
                         } else if (position == 2) {
-                            images[0] = R.drawable.friends_light;
-                            images[1] = R.drawable.wall_light;
-                            images[2] = R.drawable.news_dark;
+                            mImages[0] = R.drawable.friends_light;
+                            mImages[1] = R.drawable.wall_light;
+                            mImages[2] = R.drawable.news_dark;
                         }
-                        selectedPosition[0] = position;
+                        mSelectedPosition[0] = position;
                         mMyDrawerAdapter.notifyDataSetChanged();
                         selectItem(position);
                     }
                 });
 
-        titles = new String[] { getString(R.string.title_friends_item),
+        mTitles = new String[] { getString(R.string.title_friends_item),
                 getString(R.string.title_wall_item),
                 getString(R.string.title_news_item) };
-        images = new int[] { R.drawable.friends_dark, R.drawable.wall_light,
+        mImages = new int[] { R.drawable.friends_light, R.drawable.wall_light,
                 R.drawable.news_light };
-        selectedPosition = new int[] { mCurrentSelectedPosition };
+        mSelectedPosition = new int[] { mCurrentSelectedPosition };
 
-        mMyDrawerAdapter = new VKDrawerAdapter(getActivity(), titles, images,
-                selectedPosition);
+        mMyDrawerAdapter = new VKDrawerAdapter(getActivity(), mTitles, mImages,
+                mSelectedPosition);
         mDrawerListView.setAdapter(mMyDrawerAdapter);
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
@@ -202,7 +208,7 @@ public class FragmentVKDrawer extends Fragment {
             mCallbacks = (NavigationDrawerCallbacks) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(
-                    "Activity must implement NavigationDrawerCallbacks.");
+                    getString(R.string.exeption_drawer_text));
         }
     }
 
