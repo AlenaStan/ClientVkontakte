@@ -3,13 +3,13 @@ package com.github.alenastan.clientvkontakte.bo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.json.JSONArray;
+import com.github.alenastan.clientvkontakte.attachments.Attachment;
+import com.github.alenastan.clientvkontakte.attachments.Attachments;
+import com.github.alenastan.clientvkontakte.attachments.Photo;
+
 import org.json.JSONObject;
 
 import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.ParsePosition;
-import java.util.Date;
 
 /**
  * Created by lena on 26.01.2015.
@@ -28,14 +28,15 @@ public class Wall extends JSONObjectWrapper {
     private static final String POSTER_ID = "owner_id";
     private static final String ATTACHMENTS = "attachments";
     private static final String TYPE = "type";
+    private long mPosterId;
 
 
     private String mImageUrl;
-    private String mUrl;
-    private String mUrlTitle;
+    private String mDate;
     private String mPostDate;
     private String mUserPhoto;
     private String mUserName;
+    private Attachments mAttaches;
 
     public static final Parcelable.Creator<Wall> CREATOR
             = new Parcelable.Creator<Wall>() {
@@ -53,25 +54,31 @@ public class Wall extends JSONObjectWrapper {
         super(jsonObject);
     }
 
-    public Wall(JSONObject jsonObject){
+    public Wall(JSONObject jsonObject, DateFormat ft){
         super(jsonObject);
+        try {
+        mPosterId = jsonObject.optLong(POSTER_ID);
+        mPostDate = jsonObject.getString(DATE);
+        java.util.Date time = new java.util.Date( Long.parseLong(mPostDate) * 1000);
+        mDate = ft.format(time);
             if (jsonObject.has(ATTACHMENTS)) {
-                try {
-                    JSONArray att = jsonObject.getJSONArray(ATTACHMENTS);
-                    for (int value = 0; value < att.length(); value++) {
-                        JSONObject attachment = att.getJSONObject(value);
-                        String name = attachment.getString(TYPE);
-                        if (name.equals(PHOTO)) {
-                            mImageUrl = attachment.getJSONObject(PHOTO).getString(PHOTO_604);
-                        } else if (name.equals(LINK)) {
-                            mUrl = attachment.getJSONObject(LINK).getString(URL);
-                            mUrlTitle = attachment.getJSONObject(LINK).getString(TITLE);
+                mAttaches = new Attachments(jsonObject.getJSONArray(ATTACHMENTS));
+
+                mAttaches = new Attachments(jsonObject.getJSONArray(ATTACHMENTS));
+
+                    for (Attachment attach : mAttaches.getAttachments()){
+                        if (attach instanceof Photo){
+                            mImageUrl = attach.getUrl();
+
+                            break;
                         }
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -84,10 +91,10 @@ public class Wall extends JSONObjectWrapper {
     }
 
     public String getDate() {
-        return mPostDate;
+        return mDate;
     }
 
-    public String getPhoto() {
+    public String getImage() {
         return getImageUrl();
 
     }
@@ -95,24 +102,30 @@ public class Wall extends JSONObjectWrapper {
         return getString(ID);
     }
 
-    public String getOwnerId() throws Exception {
-        return getString(POSTER_ID);
-    }
+//    public String getOwnerId() throws Exception {
+//        return getString(POSTER_ID);
+//    }
 
-    public Long getPosterId() { return getLong(POSTER_ID);}
 
-   public String getUserPhoto() { return mUserPhoto; }
+    public Long getPosterId() { return mPosterId;}
 
-   public String getUserName() { return mUserName; }
+    public String getUserPhoto() { return mUserPhoto; }
 
-    public String getFromId() throws Exception {
-        return getString(FROM_ID);
+    public String getUserName() { return mUserName; }
+
+    public Long getFromId() throws Exception {
+        return getLong(FROM_ID);
     }
 
     public String getImageUrl() {
         return mImageUrl;
     }
 
+    public Attachments getAttaches(){ return mAttaches;}
 
+    public void addVkPosterInfo (VkPoster poster) {
+        mUserPhoto = poster.getPhotoUrl();
+        mUserName = poster.getName();
+    }
 
 }

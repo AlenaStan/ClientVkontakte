@@ -1,5 +1,6 @@
 package com.github.alenastan.clientvkontakte.helper;
 
+import android.content.Context;
 import android.os.Handler;
 
 import com.github.alenastan.clientvkontakte.os.AsyncTask;
@@ -11,7 +12,12 @@ import com.github.alenastan.clientvkontakte.source.DataSource;
  */
 public class DataManager {
 
+
     public static final boolean IS_ASYNC_TASK = true;
+
+    private Context mContext;
+
+
 
     public static interface Callback<Result> {
         void onDataLoadStart();
@@ -21,7 +27,7 @@ public class DataManager {
         void onError(Exception e);
     }
 
-    public static interface MySuperLoader<ProcessingResult, DataSourceResult, Params> {
+    public static interface ImageLoader<ProcessingResult, DataSourceResult, Params> {
 
         void load(final Callback<ProcessingResult> callback, Params params, final DataSource<DataSourceResult, Params> dataSource, final Processor<ProcessingResult, DataSourceResult> processor);
 
@@ -34,7 +40,7 @@ public class DataManager {
             final DataSource<DataSourceResult, Params> dataSource,
             final Processor<ProcessingResult, DataSourceResult> processor
     ) {
-        loadData(callback, params, dataSource, processor, new MySuperLoader<ProcessingResult, DataSourceResult, Params>() {
+        loadData(callback, params, dataSource, processor, new ImageLoader<ProcessingResult, DataSourceResult, Params>() {
             @Override
             public void load(Callback<ProcessingResult> callback, Params params, DataSource<DataSourceResult, Params> dataSource, Processor<ProcessingResult, DataSourceResult> processor) {
                 if (IS_ASYNC_TASK) {
@@ -52,11 +58,11 @@ public class DataManager {
             final Params params,
             final DataSource<DataSourceResult, Params> dataSource,
             final Processor<ProcessingResult, DataSourceResult> processor,
-            final MySuperLoader<ProcessingResult, DataSourceResult, Params> mySuperLoader) {
+            final ImageLoader<ProcessingResult, DataSourceResult, Params> mImageLoader) {
         if (callback == null) {
             throw new IllegalArgumentException("callback can't be null");
         }
-        mySuperLoader.load(callback, params, dataSource, processor);
+        mImageLoader.load(callback, params, dataSource, processor);
     }
 
     private static <ProcessingResult, DataSourceResult, Params> void executeInAsyncTask(final Callback<ProcessingResult> callback, Params params, final DataSource<DataSourceResult, Params> dataSource, final Processor<ProcessingResult, DataSourceResult> processor) {

@@ -1,8 +1,6 @@
 package com.github.alenastan.clientvkontakte;
 
 
-import com.github.alenastan.clientvkontakte.bo.User;
-
 /**
  * Created by lena on 25.01.2015.
  */
@@ -17,5 +15,7 @@ public class Api {
     public static final String WALL_GET = BASE_PATH + "wall.get?filters=owner&fields=photo_100&extended=1";
     public static final String NEWS_GET = BASE_PATH + "newsfeed.get?filters=post&fields=photo_130"+"&count=50";
     public static final String USER_GET = BASE_PATH + "users.get?fields=photo_50&user_ids=";
+
+
 
 }

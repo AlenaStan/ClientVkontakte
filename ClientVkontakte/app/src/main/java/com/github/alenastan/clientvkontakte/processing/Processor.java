@@ -1,5 +1,7 @@
 package com.github.alenastan.clientvkontakte.processing;
 
+import android.content.Context;
+
 /**
  * Created by lena on 25.01.2015.
  */

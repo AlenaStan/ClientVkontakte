@@ -29,8 +29,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class ImageLoader {
 
-    public static final String KEY = "MySuperImageLoader";
-    //TODO generate max memory based on device specification
+    public static final String KEY = "ImageLoader";
+
     public static final int MAX_SIZE = 1 * 1024 * 1024;
 
     private AtomicBoolean isPause = new AtomicBoolean(false);
@@ -84,13 +84,12 @@ public class ImageLoader {
 
     private Processor<Bitmap, InputStream> mProcessor;
 
-    private DataManager.MySuperLoader<Bitmap, InputStream, String> mMySuperLoader;
+    private DataManager.ImageLoader<Bitmap, InputStream, String> mImageLoader;
 
     private LruCache<String, Bitmap> mLruCache = new LruCache<String, Bitmap>(MAX_SIZE) {
 
         @Override
         protected int sizeOf(String key, Bitmap value) {
-            //TODO check correct calculation of bitmap size
             return (value.getWidth() * value.getHeight())*32 + key.length();
         }
     };
@@ -99,8 +98,7 @@ public class ImageLoader {
         this.mContext = context;
         this.mDataSource = dataSource;
         this.mProcessor = processor;
-        //TODO can be customizable
-        this.mMySuperLoader = new DataManager.MySuperLoader<Bitmap, InputStream, String>() {
+        this.mImageLoader = new DataManager.ImageLoader<Bitmap, InputStream, String>() {
 
             private ExecutorService executorService = new ThreadPoolExecutor(5, 5, 0, TimeUnit.MILLISECONDS,
                     new LIFOLinkedBlockingDeque<Runnable>());
@@ -155,8 +153,6 @@ public class ImageLoader {
             return;
         }
         if (!TextUtils.isEmpty(url)) {
-            //TODO create sync Map to check existing request and existing callbacks
-            //TODO add delay and cancel old request or create limited queue
             DataManager.loadData(new DataManager.Callback<Bitmap>() {
                 @Override
                 public void onDataLoadStart() {
@@ -178,7 +174,7 @@ public class ImageLoader {
 
                 }
 
-            }, url, mDataSource, mProcessor, mMySuperLoader);
+            }, url, mDataSource, mProcessor, mImageLoader);
         }
     }
 }

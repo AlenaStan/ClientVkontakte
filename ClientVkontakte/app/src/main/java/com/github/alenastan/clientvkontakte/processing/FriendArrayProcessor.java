@@ -1,5 +1,7 @@
 package com.github.alenastan.clientvkontakte.processing;
 
+import android.content.Context;
+
 import com.github.alenastan.clientvkontakte.bo.Friend;
 
 import org.json.JSONArray;

@@ -37,7 +37,7 @@ public class FragmentWall extends Fragment implements DataManager.Callback<List<
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ArrayAdapter mAdapter;
-    private WallArrayProcessor mWallArrayProcessor = new WallArrayProcessor();
+    private WallArrayProcessor mWallArrayProcessor;
     private AbsListView mListView;
     private TextView mError;
     private TextView mEmpty;
@@ -84,12 +84,14 @@ public class FragmentWall extends Fragment implements DataManager.Callback<List<
 
     }
     private WallArrayProcessor getProcessor() {
+        mWallArrayProcessor = new WallArrayProcessor(getActivity().getApplicationContext());
         return mWallArrayProcessor;
     }
 
     private HttpDataSource getHttpDataSource() {
         return new VkDataSource();
     }
+
     private void update(HttpDataSource dataSource, WallArrayProcessor processor) {
         DataManager.loadData(this,
                 getUrl(),
@@ -133,14 +135,16 @@ public class FragmentWall extends Fragment implements DataManager.Callback<List<
                     }
                     Wall item = getItem(position);
                     TextView textView1 = (TextView) convertView.findViewById(android.R.id.text1);
-                    textView1.setText(item.getId());
+                    textView1.setText(item.getUserName());
                     TextView textView2 = (TextView) convertView.findViewById(android.R.id.text2);
                     textView2.setText(item.getText());
                     convertView.setTag(item.getId());
-                    final String url = item.getPhoto();
-                    final ImageView imageView = (ImageView) convertView.findViewById(android.R.id.icon1);
+                    final String url = item.getUserPhoto();
+                    final String url1 = item.getImageUrl();
+                    final ImageView imageView = (ImageView) convertView.findViewById(android.R.id.icon);
                     mImageLoader.loadAndDisplay(url, imageView);
-
+                    final ImageView imageView1 = (ImageView) convertView.findViewById(android.R.id.icon1);
+                    mImageLoader.loadAndDisplay(url1, imageView1);
                     return convertView;
                 }
 
