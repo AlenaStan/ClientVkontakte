@@ -57,13 +57,12 @@ public class Wall extends JSONObjectWrapper {
     public Wall(JSONObject jsonObject, DateFormat ft){
         super(jsonObject);
         try {
-        mPosterId = jsonObject.optLong(POSTER_ID);
+        mPosterId = jsonObject.getLong(POSTER_ID);
         mPostDate = jsonObject.getString(DATE);
         java.util.Date time = new java.util.Date( Long.parseLong(mPostDate) * 1000);
         mDate = ft.format(time);
             if (jsonObject.has(ATTACHMENTS)) {
                 mAttaches = new Attachments(jsonObject.getJSONArray(ATTACHMENTS));
-
                 mAttaches = new Attachments(jsonObject.getJSONArray(ATTACHMENTS));
 
                     for (Attachment attach : mAttaches.getAttachments()){
@@ -94,18 +93,9 @@ public class Wall extends JSONObjectWrapper {
         return mDate;
     }
 
-    public String getImage() {
-        return getImageUrl();
-
-    }
     public String getId() {
         return getString(ID);
     }
-
-//    public String getOwnerId() throws Exception {
-//        return getString(POSTER_ID);
-//    }
-
 
     public Long getPosterId() { return mPosterId;}
 
