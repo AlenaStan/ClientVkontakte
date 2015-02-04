@@ -42,9 +42,7 @@ public class Attachments implements Attachment {
     }
 
     public List<Attachment> getAttachments() {
-//        if (mAttachments == null) {
-//            return null; //Collections.emptyList();
-//        }
+
         return mAttachments;
     }
 

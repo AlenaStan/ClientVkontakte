@@ -31,17 +31,9 @@ public class Audio implements Attachment{
 
     public String getUrl() { return mUrl; }
 
-//    public long getAlbumId() { return 0; }
-
-//    public String getText() { return null; }
-//
-//    public String getDate() { return null; }
-
     public long getOwnerId() { return mOwnerId; }
 
     public String getTitle() { return mTitle; }
-
-//    public String getPhoto() { return null; }
 
     public String getType() { return Attachments.AUDIO; }
 

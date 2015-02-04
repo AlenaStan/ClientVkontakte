@@ -46,8 +46,6 @@ public Video (JSONObject jsonObject) throws JSONException {
 
     public String getUrl() { return mUrl; }
 
-//    public long getAlbumId() { return 0; }
-
     public String getText() { return mText; }
 
     public String getDate() { return mDate; }
