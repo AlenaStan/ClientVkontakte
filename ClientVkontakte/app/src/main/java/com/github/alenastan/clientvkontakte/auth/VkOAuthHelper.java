@@ -36,7 +36,7 @@ public class VkOAuthHelper {
             Uri parsedFragment = Uri.parse("http://temp.com?" + fragment);
             String accessToken = parsedFragment.getQueryParameter("access_token");
             if (!TextUtils.isEmpty(accessToken)) {
-                Log.d(TAG, "token " + accessToken);
+//                Log.d(TAG, "token " + accessToken);
                 sToken = accessToken;
                 callbacks.onSuccess(accessToken);
                 return true;

@@ -1,35 +1,38 @@
 package com.github.alenastan.clientvkontakte.bo;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.github.alenastan.clientvkontakte.attachments.Attachment;
+import com.github.alenastan.clientvkontakte.attachments.Attachments;
+import com.github.alenastan.clientvkontakte.attachments.Photo;
+
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.DateFormat;
 
 /**
  * Created by lena on 26.01.2015.
  */
 public class News  extends JSONObjectWrapper {
 
-    private static String FROM_ID = "from_id";
-    private static String DATE = "date";
-    private static String TEXT = "text";
-    private static String ID = "id";
+    private static final String DATE = "date";
+    private static final String TEXT = "text";
+    private static final String CAN_COMMENT = "can_post";
+    private static final String COMMENTS = "comments";
+    private static final String ID = "post_id";
+    private static final String SOURCE_ID = "source_id";
     private static final String ATTACHMENTS = "attachments";
-    private static final String TYPE = "type";
-    private static final String PHOTO = "photo";
-    private static final String LINK = "link";
 
-    private static final String PHOTO_130 = "photo_130";
-    private static final String TITLE = "title";
-    private static final String URL = "url";
-    private static final String POSTER_ID = "owner_id";
-
-    //INTERNAL
-    private static final String NAME = "NAME";
     private String mImageUrl;
-    private String mUrl;
-    private String mUrlTitle;
+    private String mUserPhoto;
+    private Attachments mAttaches;
+    private String mUserName;
+    private String mFormatDate;
+    private  JSONObject mCanComment;
 
     public static final Parcelable.Creator<News> CREATOR
             = new Parcelable.Creator<News>() {
@@ -42,29 +45,30 @@ public class News  extends JSONObjectWrapper {
         }
     };
 
-    public News(String jsonObject) {
-        super(jsonObject);
-    }
+//    public News(String jsonObject) {
+//        super(jsonObject);
+//    }
 
-    public News(JSONObject jsonObject) {
+    public News(JSONObject jsonObject, DateFormat format) {
         super(jsonObject);
+        String date = getDate();
+        formatDate(date, format);
+        JSONObject comments = getComments(jsonObject);
+        mCanComment = getCanComment(comments);
         if (jsonObject.has(ATTACHMENTS)) {
             try {
-                JSONArray att = jsonObject.getJSONArray(ATTACHMENTS);
-                for (int value = 0; value < att.length(); value++) {
-                    JSONObject attachment = att.getJSONObject(value);
-                    String type = attachment.getString(TYPE);
-                    if (type.equals(PHOTO)) {
-                        mImageUrl = attachment.getJSONObject(PHOTO).getString(PHOTO_130);
-                    } else if (type.equalsIgnoreCase(LINK)) {
-                        mUrl = attachment.getJSONObject(LINK).getString(URL);
-                        mUrlTitle = attachment.getJSONObject(LINK).getString(TITLE);
-                    }
-                }
-            } catch (Exception e) {
+                mAttaches = new Attachments(jsonObject.getJSONArray(ATTACHMENTS));
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
+            for (Attachment attachment : mAttaches.getAttachments()) {
+                if (attachment instanceof Photo) {
+                    mImageUrl = attachment.getUrl();
+                    break;
+                }
+            }
         }
+
     }
 
     protected News(Parcel in) {
@@ -79,34 +83,60 @@ public class News  extends JSONObjectWrapper {
         return getString(DATE);
     }
 
-//    public String getDate() {
-//        return getString(DATE);
-//    }
-
-    public String getPhoto() {
-        return getImageUrl();
-
+    public  String formatDate(String date, DateFormat format){
+        if(date != null){
+            java.util.Date time = new java.util.Date(Long.parseLong(date) * 1000);
+            mFormatDate = format.format(time);
+            return mFormatDate;
+        }
+        return  null;
     }
 
-    public String getId() {
+    public String getPhoto() { return mImageUrl; }
+
+    public String getPostId() {
         return getString(ID);
     }
 
-    public String getOwner_Id() throws Exception {
-        return getString(POSTER_ID);
+    public Long getSourceId() throws Exception {
+        return getLong(SOURCE_ID);
     }
 
-    public Long getPosterId() {
-        return Math.abs(getLong(POSTER_ID));
+    public String getUserPhoto() { return mUserPhoto; }
+
+    public String getUserName() { return mUserName; }
+
+    public JSONObject getComments(JSONObject jsonObject) {
+
+        try {
+            return jsonObject.getJSONObject(COMMENTS);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return  null;
     }
 
-    public String getFROM_ID() throws Exception {
-        return getString(FROM_ID);
+    public JSONObject getCanComment(JSONObject jsonObject) {
+        JSONObject comments = jsonObject;
+        if (comments!= null){
+            try {
+                return comments.getJSONObject(CAN_COMMENT);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+    public void addVkPosterInfo (VkPoster poster) {
+        mUserPhoto = poster.getPhotoUrl();
+        mUserName = poster.getName();
     }
 
-    public String getImageUrl() {
-        return mImageUrl;
+    public JSONObject getCanComment() {
+        return mCanComment;
     }
 
-
+    public String getFormatDate() {
+        return mFormatDate;
+    }
 }

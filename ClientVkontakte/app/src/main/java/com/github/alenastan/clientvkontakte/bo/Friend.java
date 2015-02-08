@@ -16,8 +16,6 @@ public class Friend extends JSONObjectWrapper {
     private static final String PHOTO = "photo_200_orig";
     private static final String ONLINE = "online";
     private static final String ID = "id";
-
-    //INTERNAL
     private static final String NAME = "NAME";
 
     public static final Parcelable.Creator<Friend> CREATOR

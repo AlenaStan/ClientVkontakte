@@ -21,8 +21,8 @@ import com.github.alenastan.clientvkontakte.Api;
 import com.github.alenastan.clientvkontakte.DetailsNewsActivity;
 import com.github.alenastan.clientvkontakte.MainActivity;
 import com.github.alenastan.clientvkontakte.R;
+import com.github.alenastan.clientvkontakte.auth.VkOAuthHelper;
 import com.github.alenastan.clientvkontakte.bo.News;
-import com.github.alenastan.clientvkontakte.bo.Wall;
 import com.github.alenastan.clientvkontakte.helper.DataManager;
 import com.github.alenastan.clientvkontakte.image.ImageLoader;
 import com.github.alenastan.clientvkontakte.processing.NewsArrayProcessor;
@@ -38,7 +38,7 @@ public class FragmentNews extends Fragment implements DataManager.Callback<List<
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ArrayAdapter mAdapter;
-    private NewsArrayProcessor mNewsArrayProcessor = new NewsArrayProcessor();
+    private NewsArrayProcessor mNewsArrayProcessor;
     private AbsListView mListView;
     private TextView mError;
     private TextView mEmpty;
@@ -84,6 +84,7 @@ public class FragmentNews extends Fragment implements DataManager.Callback<List<
 
     }
     private NewsArrayProcessor getProcessor() {
+        mNewsArrayProcessor = new NewsArrayProcessor(getActivity().getApplicationContext());
         return mNewsArrayProcessor;
     }
 
@@ -98,7 +99,9 @@ public class FragmentNews extends Fragment implements DataManager.Callback<List<
     }
 
     private String getUrl() {
-        return Api.NEWS_GET ;
+        String url = Api.NEWS_GET ;
+        String signUrl = VkOAuthHelper.sign(url);
+        return signUrl;
     }
 
     @Override
@@ -132,10 +135,10 @@ public class FragmentNews extends Fragment implements DataManager.Callback<List<
                     }
                     News item = getItem(position);
                     TextView textView1 = (TextView) convertView.findViewById(android.R.id.text1);
-                    textView1.setText(item.getId());
+                    textView1.setText(item.getText());
                     TextView textView2 = (TextView) convertView.findViewById(android.R.id.text2);
                     textView2.setText(item.getText());
-                    convertView.setTag(item.getId());
+                    convertView.setTag(item.getPostId());
                     final String url = item.getPhoto();
                     final ImageView imageView = (ImageView) convertView.findViewById(android.R.id.icon1);
                     mImageLoader.loadAndDisplay(url, imageView);
@@ -150,7 +153,7 @@ public class FragmentNews extends Fragment implements DataManager.Callback<List<
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(getActivity().getApplicationContext(), DetailsNewsActivity.class);
-                    Wall item = (Wall) mAdapter.getItem(position);
+                   News item = (News) mAdapter.getItem(position);
                     //NoteGsonModel note = new NoteGsonModel(item.getId(), item.getFirstName(), item.getLastName());
                     intent.putExtra("item", item );
                     startActivity(intent);

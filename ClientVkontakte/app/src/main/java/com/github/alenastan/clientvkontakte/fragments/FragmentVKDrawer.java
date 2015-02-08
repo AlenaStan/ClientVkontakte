@@ -173,10 +173,10 @@ public class FragmentVKDrawer extends Fragment {
             }
         };
 
-        if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
-            mDrawerLayout.openDrawer(mFragmentContainerView);
-        }
-
+//        if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
+//            mDrawerLayout.openDrawer(mFragmentContainerView);
+//        }
+        mDrawerLayout.openDrawer(mFragmentContainerView);
         mDrawerLayout.post(new Runnable() {
             @Override
             public void run() {

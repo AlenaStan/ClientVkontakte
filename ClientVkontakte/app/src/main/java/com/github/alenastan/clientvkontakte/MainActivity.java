@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.github.alenastan.clientvkontakte.fragments.FragmentFriends;
 import com.github.alenastan.clientvkontakte.fragments.FragmentNews;
+
 import com.github.alenastan.clientvkontakte.fragments.FragmentVKDrawer;
 import com.github.alenastan.clientvkontakte.fragments.FragmentWall;
 
@@ -49,7 +50,6 @@ public class MainActivity extends ActionBarActivity implements FragmentVKDrawer.
             fragmentManager.beginTransaction()
                     .replace(R.id.container, FragmentNews.newInstance())
                     .commit();
-
         }
     }
     public void onSectionAttached(int number) {
@@ -63,6 +63,7 @@ public class MainActivity extends ActionBarActivity implements FragmentVKDrawer.
             case 3:
                 mTitle = getString(R.string.title_news_item);
                 break;
+
         }
     }
     public void restoreActionBar() {

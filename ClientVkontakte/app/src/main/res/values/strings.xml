@@ -16,6 +16,11 @@
     <string name="empty">Empty</string>
     <string name="error">Error</string>
     <string name="exeption_drawer_text">Activity must implement NavigationDrawerCallbacks.</string>
+    <string name="default_user_name">Alena Stanchyts</string>
+    <string name="user_online_status">Online</string>
+    <string name="template_user_status">Status</string>
+    <string name="send">send</string>
+    <string name="title_profile_item">Профиль</string>
 
 
 </resources>

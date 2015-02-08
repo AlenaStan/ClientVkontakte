@@ -14,8 +14,5 @@ public class Api {
     public static final String FRIENDS_GET = BASE_PATH + "friends.get?fields=photo_200_orig,online,nickname";
     public static final String WALL_GET = BASE_PATH + "wall.get?filters=owner&fields=photo_100&extended=1";
     public static final String NEWS_GET = BASE_PATH + "newsfeed.get?filters=post&fields=photo_130"+"&count=50";
-    public static final String USER_GET = BASE_PATH + "users.get?fields=photo_50&user_ids=";
-
-
-
+    public static final String USERS_GET = BASE_PATH + "users.get?fields=sex,bdate,city,country,photo_100,online";
 }

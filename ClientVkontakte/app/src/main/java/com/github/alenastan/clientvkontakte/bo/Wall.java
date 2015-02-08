@@ -20,17 +20,10 @@ public class Wall extends JSONObjectWrapper {
     private static String DATE = "date";
     private static String TEXT = "text";
     private static String ID = "id";
-    private static final String TITLE = "title";
-    private static final String URL = "url";
-    private static final String PHOTO = "photo";
-    private static final String LINK = "link";
-    private static final String PHOTO_604 = "photo_604";
     private static final String POSTER_ID = "owner_id";
     private static final String ATTACHMENTS = "attachments";
-    private static final String TYPE = "type";
+
     private long mPosterId;
-
-
     private String mImageUrl;
     private String mDate;
     private String mPostDate;
@@ -50,24 +43,24 @@ public class Wall extends JSONObjectWrapper {
     };
 
 
-    public Wall(String jsonObject) {
-        super(jsonObject);
-    }
+//    public Wall(String jsonObject) {
+//        super(jsonObject);
+//    }
 
-    public Wall(JSONObject jsonObject, DateFormat ft){
+    public Wall(JSONObject jsonObject, DateFormat format){
         super(jsonObject);
         try {
         mPosterId = jsonObject.getLong(POSTER_ID);
         mPostDate = jsonObject.getString(DATE);
         java.util.Date time = new java.util.Date( Long.parseLong(mPostDate) * 1000);
-        mDate = ft.format(time);
+        mDate = format.format(time);
             if (jsonObject.has(ATTACHMENTS)) {
                 mAttaches = new Attachments(jsonObject.getJSONArray(ATTACHMENTS));
                 mAttaches = new Attachments(jsonObject.getJSONArray(ATTACHMENTS));
 
-                    for (Attachment attach : mAttaches.getAttachments()){
-                        if (attach instanceof Photo){
-                            mImageUrl = attach.getUrl();
+                    for (Attachment attachment : mAttaches.getAttachments()){
+                        if (attachment instanceof Photo){
+                            mImageUrl = attachment.getUrl();
 
                             break;
                         }

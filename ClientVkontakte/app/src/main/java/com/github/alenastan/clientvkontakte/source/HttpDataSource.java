@@ -22,9 +22,7 @@ public class HttpDataSource implements DataSource<InputStream, String> {
 
     @Override
     public InputStream getResult(String p) throws Exception {
-        //download data and return
         URL url = new URL(p);
-        // Read all the text returned by the server
         InputStream inputStream = url.openStream();
         return inputStream;
     }
