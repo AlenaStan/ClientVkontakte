@@ -11,6 +11,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity
             android:name=".StartActivity"
             android:label="@string/app_name" >
@@ -22,20 +23,24 @@
 
         <activity
             android:name=".VkLoginActivity"
-            android:label="@string/title_vk_login_activity"/>
+            android:label="@string/title_vk_login_activity"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/title_main_activity"
             android:launchMode="singleTask"
-            />
+            android:screenOrientation="portrait"/>
 
         <activity
         android:name=".DetailsActivity"
         android:label="@string/title_details_activity"
+        android:screenOrientation="portrait"
         />
         <activity
             android:name=".DetailsWallActivity"
             android:label="@string/title_details_activity"
+            android:screenOrientation="portrait"
             />
 
 
