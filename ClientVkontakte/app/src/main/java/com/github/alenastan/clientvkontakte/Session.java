@@ -23,7 +23,6 @@ public class Session {
         return mToken;
     }
 
-
     protected  void saveTokenToSharedPreferences(String s,Context context) {
         mToken = s;
         String encToken = null;

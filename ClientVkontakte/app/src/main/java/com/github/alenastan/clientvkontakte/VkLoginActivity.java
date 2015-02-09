@@ -19,12 +19,7 @@ import com.github.alenastan.clientvkontakte.auth.VkOAuthHelper;
  */
 public class VkLoginActivity extends ActionBarActivity implements VkOAuthHelper.Callbacks {
 
-    private static final String TAG = VkLoginActivity.class.getSimpleName();
-
     private WebView mWebView;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -22,12 +22,6 @@ public class VkOAuthHelper {
     }
 
     private static String sToken;
-    private static final String TAG = VkOAuthHelper.class.getSimpleName();
-
-
-    public static boolean isLogged() {
-        return !TextUtils.isEmpty(sToken);
-    }
 
     public static boolean parseUrl(Activity activity, String url, Callbacks callbacks) {
         if (url.startsWith(Api.REDIRECT_URL)) {

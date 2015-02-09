@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
-import com.github.alenastan.clientvkontakte.utils.AuthUtils;
-
 /**
  * Created by lena on 25.01.2015.
  */
