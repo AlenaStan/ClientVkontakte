@@ -3,41 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/accent"
     tools:context=".DetailsActivity"
     >
 
-    <!--android:paddingLeft="@dimen/activity_horizontal_margin"-->
-    <!--android:paddingRight="@dimen/activity_horizontal_margin"-->
-    <!--android:paddingTop="48dip"-->
-    <!--android:paddingBottom="48dip"-->
-
     <ImageView
-        android:id="@android:id/icon"
+        android:id="@+id/photo"
         android:layout_width="match_parent"
         android:scaleType="fitCenter"
         android:layout_height="match_parent"
         />
 
-    <TextView
-        android:id="@android:id/text1"
-        android:layout_toEndOf="@android:id/icon"
-        android:layout_toRightOf="@android:id/icon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/friend_name_padding"
-        android:textSize="@dimen/friend_name_size"
-        android:textColor="@color/icons"
-        />
-    <TextView
-
-        android:id="@android:id/text2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@android:id/text1"
-        android:paddingLeft="@dimen/friend_name_padding"
-        android:textSize="@dimen/friend_name_size"
-        android:textColor="@color/icons"
-        />
 
 </RelativeLayout>

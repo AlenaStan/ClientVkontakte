@@ -25,6 +25,7 @@ public class VkLoginActivity extends ActionBarActivity implements VkOAuthHelper.
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +71,7 @@ public class VkLoginActivity extends ActionBarActivity implements VkOAuthHelper.
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            Log.d(TAG, "page started " + url);
+            super.onPageStarted(view, url, favicon);
             showProgress();
             view.setVisibility(View.INVISIBLE);
         }
@@ -78,9 +79,7 @@ public class VkLoginActivity extends ActionBarActivity implements VkOAuthHelper.
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            Log.d(TAG, "override " + url);
-            if (VkOAuthHelper.parseUrl(VkLoginActivity.this, url, VkLoginActivity.this)) {
-                Log.d(TAG, "redirect");
+           if (VkOAuthHelper.parseUrl(VkLoginActivity.this, url, VkLoginActivity.this)) {
                 view.setVisibility(View.INVISIBLE);
                 return true;
             } else {
@@ -96,13 +95,12 @@ public class VkLoginActivity extends ActionBarActivity implements VkOAuthHelper.
             showProgress();
             view.setVisibility(View.VISIBLE);
             dismissProgress();
-            Log.d(TAG, "error " + failingUrl);
+
         }
 
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            Log.d(TAG, "finish " + url);
             view.setVisibility(View.VISIBLE);
             dismissProgress();
             }

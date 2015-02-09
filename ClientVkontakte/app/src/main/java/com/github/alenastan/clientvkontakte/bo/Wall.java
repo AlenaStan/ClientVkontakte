@@ -86,8 +86,8 @@ public class Wall extends JSONObjectWrapper {
         return mDate;
     }
 
-    public String getId() {
-        return getString(ID);
+    public Long getId() {
+        return getLong(ID);
     }
 
     public Long getPosterId() { return mPosterId;}
@@ -105,6 +105,10 @@ public class Wall extends JSONObjectWrapper {
     }
 
     public Attachments getAttaches(){ return mAttaches;}
+
+//    public Long getId() {
+//        return getLong(ID);
+//    }
 
     public void addVkPosterInfo (VkPoster poster) {
         mUserPhoto = poster.getPhotoUrl();

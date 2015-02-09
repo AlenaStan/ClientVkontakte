@@ -21,6 +21,7 @@ import com.github.alenastan.clientvkontakte.Api;
 import com.github.alenastan.clientvkontakte.DetailsWallActivity;
 import com.github.alenastan.clientvkontakte.MainActivity;
 import com.github.alenastan.clientvkontakte.R;
+import com.github.alenastan.clientvkontakte.bo.NoteGsonModel;
 import com.github.alenastan.clientvkontakte.bo.Wall;
 import com.github.alenastan.clientvkontakte.helper.DataManager;
 import com.github.alenastan.clientvkontakte.image.ImageLoader;
@@ -134,16 +135,16 @@ public class FragmentWall extends Fragment implements DataManager.Callback<List<
                         convertView = View.inflate(getActivity().getApplicationContext(), R.layout.wall_item, null);
                     }
                     Wall item = getItem(position);
-                    TextView textView1 = (TextView) convertView.findViewById(android.R.id.text1);
+                    TextView textView1 = (TextView) convertView.findViewById(R.id.name);
                     textView1.setText(item.getUserName());
-                    TextView textView2 = (TextView) convertView.findViewById(android.R.id.text2);
+                    TextView textView2 = (TextView) convertView.findViewById(R.id.description);
                     textView2.setText(item.getText());
                     convertView.setTag(item.getId());
                     final String url = item.getUserPhoto();
                     final String url1 = item.getImageUrl();
-                    final ImageView imageView = (ImageView) convertView.findViewById(android.R.id.icon);
+                    final ImageView imageView = (ImageView) convertView.findViewById(R.id.photo);
                     mImageLoader.loadAndDisplay(url, imageView);
-                    final ImageView imageView1 = (ImageView) convertView.findViewById(android.R.id.icon1);
+                    final ImageView imageView1 = (ImageView) convertView.findViewById(R.id.content);
                     mImageLoader.loadAndDisplay(url1, imageView1);
                     return convertView;
                 }
@@ -156,8 +157,8 @@ public class FragmentWall extends Fragment implements DataManager.Callback<List<
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(getActivity().getApplicationContext(), DetailsWallActivity.class);
                     Wall item = (Wall) mAdapter.getItem(position);
-                    //NoteGsonModel note = new NoteGsonModel(item.getId(), item.getFirstName(), item.getLastName());
-                    intent.putExtra("item", item );
+                    NoteGsonModel note = new NoteGsonModel(item.getId(), item.getText(),item.getDate(), item.getImageUrl());
+                    intent.putExtra("item", note );
                     startActivity(intent);
                 }
             });

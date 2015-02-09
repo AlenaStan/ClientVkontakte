@@ -30,10 +30,15 @@
             />
 
         <activity
-            android:name=".DetailsActivity"
+        android:name=".DetailsActivity"
+        android:label="@string/title_details_activity"
+        />
+        <activity
+            android:name=".DetailsWallActivity"
             android:label="@string/title_details_activity"
-
             />
+
+
 
     </application>
 

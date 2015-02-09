@@ -23,6 +23,7 @@ import com.github.alenastan.clientvkontakte.MainActivity;
 import com.github.alenastan.clientvkontakte.R;
 import com.github.alenastan.clientvkontakte.auth.VkOAuthHelper;
 import com.github.alenastan.clientvkontakte.bo.News;
+import com.github.alenastan.clientvkontakte.bo.NoteGsonModel;
 import com.github.alenastan.clientvkontakte.helper.DataManager;
 import com.github.alenastan.clientvkontakte.image.ImageLoader;
 import com.github.alenastan.clientvkontakte.processing.NewsArrayProcessor;

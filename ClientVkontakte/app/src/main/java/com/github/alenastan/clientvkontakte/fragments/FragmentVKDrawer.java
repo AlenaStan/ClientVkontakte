@@ -21,9 +21,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.github.alenastan.clientvkontakte.R;
-import com.github.alenastan.clientvkontakte.Titles;
 import com.github.alenastan.clientvkontakte.adapters.VKDrawerAdapter;
-import com.github.alenastan.clientvkontakte.bo.Wall;
 
 /**
  * Created by lena on 25.01.2015.
@@ -173,9 +171,9 @@ public class FragmentVKDrawer extends Fragment {
             }
         };
 
-//        if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
-//            mDrawerLayout.openDrawer(mFragmentContainerView);
-//        }
+        if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
+            mDrawerLayout.openDrawer(mFragmentContainerView);
+        }
         mDrawerLayout.openDrawer(mFragmentContainerView);
         mDrawerLayout.post(new Runnable() {
             @Override
