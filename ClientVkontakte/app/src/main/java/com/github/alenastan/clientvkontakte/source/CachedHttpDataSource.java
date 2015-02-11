@@ -89,13 +89,12 @@ public class CachedHttpDataSource extends HttpDataSource {
     public static final String md5(final String s) {
         final String MD5 = "MD5";
         try {
-            // Create MD5 Hash
+
             MessageDigest digest = java.security.MessageDigest
                     .getInstance(MD5);
             digest.update(s.getBytes());
             byte messageDigest[] = digest.digest();
 
-            // Create Hex String
             StringBuilder hexString = new StringBuilder();
             for (byte aMessageDigest : messageDigest) {
                 String h = Integer.toHexString(0xFF & aMessageDigest);
